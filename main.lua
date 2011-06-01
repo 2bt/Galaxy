@@ -201,6 +201,9 @@ function player:update()
 		if self.exit_delay == 0 then
 			love.event.push("q")
 		end
+	end
+
+	if not self.alive then
 		return
 	end
 
