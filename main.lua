@@ -81,6 +81,8 @@ function Fiend:update()
 
 	for i, l in ipairs(laser) do
 		if collision(self, l) then
+			sounds.hurt:stop()
+			sounds.hurt:play()
 			table.remove(laser, i)
 			self.shield = self.shield - 1
 			if self.shield == 0 then
@@ -103,6 +105,8 @@ function Fiend:update()
 end
 function Fiend:shoot()
 	table.insert(bullets, Bullet(self))
+	sounds.bullet:stop()
+	sounds.bullet:play()
 end
 function Fiend:draw()
 	love.graphics.setColor(unpack(self.color))
@@ -132,6 +136,8 @@ function Bullet:update()
 	end
 
 	if player.alive and collision(self, player) then
+		sounds.hurt:stop()
+		sounds.hurt:play()
 		player.shield = player.shield - 1
 		if player.shield == 0 then
 			player:die()
@@ -178,6 +184,8 @@ function explosion(a)
 	for i = 1, 20 do
 		table.insert(particles, Trash(a))
 	end
+	sounds.boom:stop()
+	sounds.boom:play()
 end
 
 
@@ -220,6 +228,8 @@ function player:update()
 	if love.keyboard.isDown("x") and shoot == 0 then
 		shoot = laser_delay
 		table.insert(laser, Laser(player.x, player.y - 10))
+		sounds.laser:stop()
+		sounds.laser:play()
 	elseif shoot > 0 then
 		shoot = shoot - 1
 	end
@@ -260,6 +270,13 @@ function love.load()
 
 	bullets = {}
 	particles = {}
+
+
+	sounds = {}
+	sounds.boom = love.audio.newSource("boom.wav", "static")
+	sounds.laser = love.audio.newSource("laser.wav", "static")
+	sounds.bullet = love.audio.newSource("bullet.wav", "static")
+	sounds.hurt = love.audio.newSource("hurt.wav", "static")
 
 end
 

@@ -6,11 +6,11 @@ function font.init()
 	img:setFilter("nearest", "nearest")
 	quads = {}
 
-	for i = 32, 127 do
+	for i = 0, 127 do
 		local c = string.char(i)
 		local x = (i % 8) * 8
-		local y = math.floor(i / 8) * 8 - 32
-		quads[c] = love.graphics.newQuad(x, y, 8, 8, 64, 96)
+		local y = math.floor(i / 8) * 8
+		quads[c] = love.graphics.newQuad(x, y, 8, 8, 64, 128)
 	end
 end
 
